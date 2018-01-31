@@ -7,7 +7,7 @@
 	<title>Input Window</title>
 </head>
 <body>
-	<form:form modelAttribute="inputWindowForm" method="POST">
+	<form:form modelAttribute="inputWindowForm" method="post">
 		<form:input path="purchaceDate" />
 		<form:input path="purchaceSum" />
 		<input type="submit">
