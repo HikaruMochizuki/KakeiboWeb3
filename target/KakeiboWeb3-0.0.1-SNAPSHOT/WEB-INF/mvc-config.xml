@@ -9,7 +9,7 @@
 		                http://www.springframework.org/schema/context
 		                http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="controller"/>
+	<context:component-scan base-package="kakeibo"/>
 
 	<mvc:annotation-driven />
 
@@ -31,12 +31,13 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="mapper" />
+		<property name="basePackage" value="kakeibo.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="xml.mapper" />
+		<property name="basePackage" value="mapper" />
 	</bean>
+
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>

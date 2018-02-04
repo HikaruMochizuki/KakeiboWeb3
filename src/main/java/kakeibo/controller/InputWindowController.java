@@ -1,5 +1,9 @@
 package kakeibo.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,32 +11,55 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kakeibo.constants.Messages;
+import kakeibo.dto.ReceiptDto;
 import kakeibo.dto.RegisterDto;
 import kakeibo.form.InputWindowForm;
+import kakeibo.service.GetReceiptService;
 import kakeibo.service.RegisterReceiptService;
 
 @Controller
 public class InputWindowController{
 
 	@Autowired
+	private GetReceiptService getReceiptService;
+
+	@Autowired
 	private RegisterReceiptService registerReceiptService;
+
+	private List<ReceiptDto> receiptList;
 
 	public InputWindowController() {
 	}
 
+	//初期表示
 	@RequestMapping(value = "/input", method = RequestMethod.GET)
 	public String showInputWindow(Model model) {
+		receiptList = getReceiptService.getReceiptList();
 		InputWindowForm form = new InputWindowForm();
 		model.addAttribute("inputWindowForm", form);
+		model.addAttribute("receiptList", receiptList);
 		return "inputWindow";
 	}
 
+	//レシート登録
 	@RequestMapping(value = "/input", method = RequestMethod.POST)
 	public String insertReceipt(@ModelAttribute InputWindowForm form, Model model){
 		RegisterDto rgstrDto = new RegisterDto();
-		rgstrDto.setPurchaceDate(form.getPurchaceDate());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			rgstrDto.setPurchaceDate(sdf.parse(form.getPurchaceDate()));
+		} catch (ParseException e) {
+			//日付フォーマットエラー
+			model.addAttribute("message", Messages.ERR_INPUT_DATE);
+			return "inputWindow";
+		}
 		rgstrDto.setPurchaceSum(form.getPurchaceSum());
+		//レシート登録処理
 		registerReceiptService.insertReceipt(rgstrDto);
+		model.addAttribute("message", Messages.SUCCESS_INSERT_RECEIPT);
+		receiptList = getReceiptService.getReceiptList();
+		model.addAttribute("receiptList", receiptList);
 		return "inputWindow";
 	}
 

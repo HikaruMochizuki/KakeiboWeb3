@@ -16,7 +16,9 @@ public class RegisterReceiptService {
 	}
 
 	public void insertReceipt(RegisterDto rgstrDto){
+
 		rgstrMapper.insertReceipt(rgstrDto);
+
 	}
 
 }

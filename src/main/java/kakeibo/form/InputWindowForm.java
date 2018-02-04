@@ -1,21 +1,19 @@
 package kakeibo.form;
 
-import java.sql.Date;
-
 public class InputWindowForm {
 
-	private Date purchaceDate;
+	private String purchaceDate;
 
 	private int purchaceSum;
 
 	public InputWindowForm() {
 	}
 
-	public Date getPurchaceDate() {
+	public String getPurchaceDate() {
 		return purchaceDate;
 	}
 
-	public void setPurchaceDate(Date purchaceDate) {
+	public void setPurchaceDate(String purchaceDate) {
 		this.purchaceDate = purchaceDate;
 	}
 
