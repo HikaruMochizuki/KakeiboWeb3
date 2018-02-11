@@ -6,7 +6,7 @@ public class RegisterDto {
 
 	private Date purchaceDate;
 
-	private int purchaceSum;
+	private Integer purchaceSum;
 
 	public RegisterDto() {
 	}
@@ -21,12 +21,12 @@ public class RegisterDto {
 	}
 
 
-	public int getPurchaceSum() {
+	public Integer getPurchaceSum() {
 		return purchaceSum;
 	}
 
 
-	public void setPurchaceSum(int purchaceSum) {
+	public void setPurchaceSum(Integer purchaceSum) {
 		this.purchaceSum = purchaceSum;
 	}
 

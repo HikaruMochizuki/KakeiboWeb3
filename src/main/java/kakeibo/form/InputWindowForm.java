@@ -1,10 +1,19 @@
 package kakeibo.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class InputWindowForm {
 
+	//購入日
+	@NotEmpty
+	@Pattern(regexp="(^\\d{4})/(0[0-9]|1[0-2])/(0[0-9]|[12][0-9]|3[01])$")
 	private String purchaceDate;
 
-	private int purchaceSum;
+	//購入金額
+	@NotNull
+	private Integer purchaceSum;
 
 	public InputWindowForm() {
 	}
@@ -17,11 +26,11 @@ public class InputWindowForm {
 		this.purchaceDate = purchaceDate;
 	}
 
-	public int getPurchaceSum() {
+	public Integer getPurchaceSum() {
 		return purchaceSum;
 	}
 
-	public void setPurchaceSum(int purchaceSum) {
+	public void setPurchaceSum(Integer purchaceSum) {
 		this.purchaceSum = purchaceSum;
 	}
 

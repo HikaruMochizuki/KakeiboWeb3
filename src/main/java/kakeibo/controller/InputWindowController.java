@@ -4,9 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,9 +47,9 @@ public class InputWindowController{
 
 	//レシート登録
 	@RequestMapping(value = "/input", method = RequestMethod.POST)
-	public String insertReceipt(@ModelAttribute InputWindowForm form, Model model){
+	public String insertReceipt(@Valid @ModelAttribute InputWindowForm form, BindingResult result, Model model){
 		RegisterDto rgstrDto = new RegisterDto();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		try {
 			rgstrDto.setPurchaceDate(sdf.parse(form.getPurchaceDate()));
 		} catch (ParseException e) {

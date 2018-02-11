@@ -8,9 +8,11 @@
 	<title>Input Window</title>
 </head>
 <body>
+	<!-- 入力チェックエラーメッセージ -->
 	<h2>${message}</h2>
 	<!-- レシート登録フォーム -->
 	<form:form modelAttribute="inputWindowForm" method="post">
+	<div><form:errors path="*" /></div>
 		<table>
 			<tbody>
 				<tr>
