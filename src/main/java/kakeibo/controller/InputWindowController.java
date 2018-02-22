@@ -21,48 +21,77 @@ import kakeibo.form.InputWindowForm;
 import kakeibo.service.GetReceiptService;
 import kakeibo.service.RegisterReceiptService;
 
+/**
+ *
+ * @author Amami
+ *
+ */
 @Controller
 public class InputWindowController{
 
+	/**
+	 * レシート取得サービス
+	 */
 	@Autowired
 	private GetReceiptService getReceiptService;
 
+	/**
+	 * レシート登録サービス
+	 */
 	@Autowired
 	private RegisterReceiptService registerReceiptService;
 
+	/**
+	 * レシートリストDTO
+	 */
 	private List<ReceiptDto> receiptList;
 
 	public InputWindowController() {
 	}
 
-	//初期表示
+	/**
+	 * 初期表示
+	 * @param model
+	 * @return
+	 */
+	//
 	@RequestMapping(value = "/input", method = RequestMethod.GET)
 	public String showInputWindow(Model model) {
-		receiptList = getReceiptService.getReceiptList();
 		InputWindowForm form = new InputWindowForm();
 		model.addAttribute("inputWindowForm", form);
-		model.addAttribute("receiptList", receiptList);
+		setReceiptList(model);
 		return "inputWindow";
 	}
 
-	//レシート登録
+	/**
+	 * レシート登録
+	 * @param form
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/input", method = RequestMethod.POST)
 	public String insertReceipt(@Valid @ModelAttribute InputWindowForm form, BindingResult result, Model model){
-		RegisterDto rgstrDto = new RegisterDto();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		try {
-			rgstrDto.setPurchaceDate(sdf.parse(form.getPurchaceDate()));
-		} catch (ParseException e) {
-			//日付フォーマットエラー
-			model.addAttribute("message", Messages.ERR_INPUT_DATE);
-			return "inputWindow";
+		if (result.hasErrors()) {
+			//入力チェックエラー処理
+			model.addAttribute("message", Messages.ERR_INPUT_VALUES);
+		} else {
+			//正常処理
+			try {
+				RegisterDto rgstrDto = new RegisterDto();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				rgstrDto.setPurchaceDate(sdf.parse(form.getPurchaceDate()));
+				rgstrDto.setPurchaceSum(form.getPurchaceSum());
+				//レシート登録処理
+				registerReceiptService.insertReceipt(rgstrDto);
+				model.addAttribute("message", Messages.SUCCESS_INSERT_RECEIPT);
+			} catch (ParseException e) {
+				//日付フォーマットエラー
+				e.printStackTrace();
+				model.addAttribute("message", Messages.ERR_INPUT_DATE);
+			}
 		}
-		rgstrDto.setPurchaceSum(form.getPurchaceSum());
-		//レシート登録処理
-		registerReceiptService.insertReceipt(rgstrDto);
-		model.addAttribute("message", Messages.SUCCESS_INSERT_RECEIPT);
-		receiptList = getReceiptService.getReceiptList();
-		model.addAttribute("receiptList", receiptList);
+		setReceiptList(model);
 		return "inputWindow";
 	}
 
@@ -71,6 +100,15 @@ public class InputWindowController{
 		InputWindowForm form = new InputWindowForm();
 		model.addAttribute("inputWindowForm", form);
 		return "showMessage";
+	}
+
+	/**
+	 * レシートリスト取得処理
+	 * @param model
+	 */
+	private void setReceiptList(Model model) {
+		receiptList = getReceiptService.getReceiptList();
+		model.addAttribute("receiptList", receiptList);
 	}
 
 
