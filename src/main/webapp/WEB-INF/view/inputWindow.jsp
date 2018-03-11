@@ -6,6 +6,22 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Input Window</title>
+	<!-- カレンダーアイコン設定要javascript&css -->
+	<link href="<c:url value="/resources/css/jquery-ui.theme.css" />" rel="stylesheet">
+	<link href="<c:url value="/resources/css/jquery-ui.css" />" rel="stylesheet">
+	<link href="<c:url value="/resources/css/jquery-ui.structure.css" />" rel="stylesheet">
+	<script type="text/javascript" src=<c:url value="/resources/js/jquery-3.3.1.min.js" />></script>
+	<script type="text/javascript" src=<c:url value="/resources/js/jquery-ui.min.js" />></script>
+	<script type="text/javascript" src=<c:url value="/resources/js/datepicker-ja.js" />></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#jquery-ui-datepicker').datepicker({
+				showOn: "button",
+				buttonImage: "resources/icon/calendar.png",
+				buttonImageOnly: true
+			});
+		});
+	</script>
 </head>
 <body>
 	<h2>${message}</h2>
@@ -17,7 +33,7 @@
 			<tbody>
 				<tr>
 					<td><form:label path="purchaceDate">購入日：</form:label></td>
-					<td><form:input path="purchaceDate" /></td>
+					<td><form:input path="purchaceDate" id="jquery-ui-datepicker" /></td>
 				</tr>
 				<tr>
 					<td><form:label path="purchaceSum">購入金額：</form:label></td>
