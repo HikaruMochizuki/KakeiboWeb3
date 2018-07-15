@@ -13,6 +13,9 @@
 
 	<mvc:annotation-driven />
 
+	<!-- webapp下にjsやcssを配置する際の指定。resource下を全てresourceとみなす -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	        <!-- Example: a logical view name of 'showMessage' is mapped to '/WEB-INF/jsp/showMessage.jsp' -->

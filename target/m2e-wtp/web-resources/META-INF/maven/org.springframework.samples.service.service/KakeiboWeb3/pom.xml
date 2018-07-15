@@ -28,8 +28,13 @@
 		<hibernate.version>4.2.1.Final</hibernate.version>
 
 		<!-- Logging -->
+		<!--
 		<logback.version>1.0.13</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
+		-->
+		<log4j-core.version>2.11.0</log4j-core.version>
+		<log4j-jcl.version>2.11.0</log4j-jcl.version>
+		<log4j-slf4j-impl.version>2.11.0</log4j-slf4j-impl.version>
 
 		<!-- Test -->
 		<junit.version>4.11</junit.version>
@@ -83,6 +88,7 @@
 		</dependency>
 
 		<!-- Logging with SLF4J & LogBack -->
+		<!--
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -94,6 +100,26 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		-->
+
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j-core.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-jcl -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+			<version>${log4j-jcl.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j-slf4j-impl.version}</version>
 		</dependency>
 
 		<!-- Hibernate -->

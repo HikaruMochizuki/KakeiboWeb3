@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,8 @@ import kakeibo.service.RegisterReceiptService;
  */
 @Controller
 public class InputWindowController{
+
+	private static Logger logger = LogManager.getLogger();
 
 	/**
 	 * レシート取得サービス
@@ -78,6 +82,7 @@ public class InputWindowController{
 		} else {
 			//正常処理
 			try {
+				logger.debug("レシート登録処理開始");
 				RegisterDto rgstrDto = new RegisterDto();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				rgstrDto.setPurchaceDate(sdf.parse(form.getPurchaceDate()));
