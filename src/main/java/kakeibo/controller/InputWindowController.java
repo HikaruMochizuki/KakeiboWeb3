@@ -82,7 +82,7 @@ public class InputWindowController{
 		} else {
 			//正常処理
 			try {
-				logger.debug("レシート登録処理開始");
+				logger.info("レシート登録処理開始");
 				RegisterDto rgstrDto = new RegisterDto();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				rgstrDto.setPurchaceDate(sdf.parse(form.getPurchaceDate()));
@@ -90,8 +90,10 @@ public class InputWindowController{
 				//レシート登録処理
 				registerReceiptService.insertReceipt(rgstrDto);
 				model.addAttribute("message", Messages.SUCCESS_INSERT_RECEIPT);
+				logger.info("レシート登録処理終了");
 			} catch (ParseException e) {
 				//日付フォーマットエラー
+				logger.warn("日付フォーマットエラー");
 				e.printStackTrace();
 				model.addAttribute("message", Messages.ERR_INPUT_DATE);
 			}
